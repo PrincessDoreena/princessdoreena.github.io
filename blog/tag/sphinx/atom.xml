@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
   <id>https://princessdoreena.xyz</id>
-  <title>Dorina's blog</title>
-  <updated>2023-08-13T21:30:15.655486+00:00</updated>
+  <title>Dorina's blog - Posts tagged sphinx</title>
+  <updated>2023-08-13T21:30:15.685557+00:00</updated>
   <link href="https://princessdoreena.xyz"/>
-  <link href="https://princessdoreena.xyz/blog/atom.xml" rel="self"/>
+  <link href="https://princessdoreena.xyz/blog/tag/sphinx/atom.xml" rel="self"/>
   <generator uri="https://ablog.readthedocs.io/" version="0.11.4.post1">ABlog</generator>
   <entry>
     <id>https://princessdoreena.xyz/sphinx-autosummary/</id>

@@ -1,0 +1,363 @@
+
+.. Dorina's blog post example, created by `ablog start` on Aug 08, 2023.
+
+.. post:: Aug 08, 2023
+   :category: Tutorial
+   :tags: python, sphinx, documentation, autosummary, autodoc, autoapi, docstrings
+   :author: Dorina Kovacs
+
+How to automatically generate Sphinx documentation for your Python project complete with ToC and type hints without AutoAPI
+===========================================================================================================================
+
+Using `autosummary` and `autodoc` to automate documentation generation from source code and docstrings without using either AutoAPI, sphinx-apidoc or any external tool.
+########################################################################################################################################################################
+
+.. contents:: Table of Contents
+   :local:
+
+Introduction
+************
+
+Sphinx [#f1]_ is a popular documentation generator tool, able to generate pretty `HTML` such as this:
+
+.. picture::
+   :srcsets: _static/sphinx_example-mobile.png, _static/sphinx_example.png
+   :media-queries: (max-width: 799px), (min-width: 800px)
+
+   .. image:: _static/sphinx_example.png
+      :alt: Cropeed screenshot of the documentation of the spotipy library. The image shows a part of a list of classes with their methods documented.
+
+Sphinx uses a markup language called reStructuredText [#f2]_  [#f3]_. reStructuredText looks like the following (taken from the spotipy documentation):
+
+.. code-block:: rst
+
+   .. image:: images/spotify-web-api-doc.jpg
+   :width: 100 %
+   
+   Welcome to Spotipy!
+   ===================================
+   
+   *Spotipy* is a lightweight Python library for the `Spotify Web API
+   <https://developer.spotify.com/documentation/web-api/>`_. With *Spotipy*
+   you get full access to all of the music data provided by the Spotify platform.
+   
+   Assuming you set the ``SPOTIPY_CLIENT_ID`` and ``SPOTIPY_CLIENT_SECRET``
+   environment variables (here is a `video <https://youtu.be/kaBVN8uP358>`_ explaining how to do so).
+
+To follow this tutorial an in-depth knowledge of reStructuredText is not needed. Making small edits in
+generated documents and simply copy-pasting a few lines will be enough. For an introduction to
+reStructuredText: see [#f3]_.
+
+It is common for Python projects to keep the documentation in so-called `docstrings` [#f4]_ inside the
+source code. Sphinx' `autodoc` extension is able to extract the docstrings from the source code and
+include them in the documentataion.
+
+There are multiple ways to automatically generate documentation using `autodoc` for every module in a
+project. Sphinx includes a tool called `sphinx-apidoc` [#f5]_. From the documentation:
+
+.. epigraph::
+
+   **sphinx-apidoc** is a tool for automatic generation of Sphinx sources that, using the `autodoc` extension, document a whole package in the style of other automatic API documentation tools.
+
+The problem with `sphinx-apidoc` is that the table of contents is not included in the sidebar, making
+it hard to navigate the documentation, thus we will not use it in this tutorial. Another way to
+generate docs is to use an external program called `AutoAPI` [#f6]_. In this tutorial however we will
+use no external tool, since it is possible to generate nice docs using only the `autosummary` extension,
+which is part of the official Sphinx distribution.
+
+First step: Generating basic Sphinx configuration
+*************************************************
+
+Change directory to your project's root and use the ``sphinx-quickstart`` command to generate basic
+sphinx configuration. `sphinx-quickstart` allows you to specify which extensions to enable and
+where the templates will be located using command line options. We will do it later manually
+instead.
+
+.. code-block:: console
+
+   $ cd project
+   $ sphinx-quickstart docs
+   Welcome to the Sphinx 7.0.1 quickstart utility.
+
+   Please enter values for the following settings (just press Enter to
+   accept a default value, if one is given in brackets).
+
+   Selected root path: docs
+
+   You have two options for placing the build directory for Sphinx output.
+   Either, you use a directory "_build" within the root path, or you separate
+   "source" and "build" directories within the root path.
+   > Separate source and build directories (y/n) [n]: y
+
+   The project name will occur in several places in the built documentation.
+   > Project name: Example Project
+   > Author name(s): John Doe
+   > Project release []: 0.0.1
+
+   If the documents are to be written in a language other than English,
+   you can select a language here by its language code. Sphinx will then
+   translate text that it generates into that language.
+
+   For a list of supported codes, see
+   https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-language.
+   > Project language [en]:
+
+   Creating file project/docs/source/conf.py.
+   Creating file project/docs/source/index.rst.
+   Creating file project/docs/Makefile.
+   Creating file project/docs/make.bat.
+
+   Finished: An initial directory structure has been created.
+
+   You should now populate your master file project/docs/source/index.rst and create other documentation
+   source files. Use the Makefile to build the docs, like so:
+   make builder
+   where "builder" is one of the supported builders, e.g. html, latex or linkcheck.
+
+Customize conf.py
+*****************
+
+Open ``docs/source/conf.py`` with a text editor. It will look like this:
+
+.. code-block:: python
+
+   # Configuration file for the Sphinx documentation builder.
+   #
+   # For the full list of built-in configuration values, see the documentation:
+   # https://www.sphinx-doc.org/en/master/usage/configuration.html
+
+   # -- Project information -----------------------------------------------------
+   # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
+
+   project = 'Example Project'
+   copyright = '2023, John Doe'
+   author = 'John Doe'
+   release = '0.0.1'
+
+   # -- General configuration ---------------------------------------------------
+   # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
+
+   extensions = []
+
+   templates_path = ['_templates']
+   exclude_patterns = []
+
+
+
+   # -- Options for HTML output -------------------------------------------------
+   # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
+
+   html_theme = 'alabaster'
+   html_static_path = ['_static']
+
+Since we want Sphinx to be able to find our python modules, we need to add our project root to ``sys.path``.
+Paste the following lines into `docs/source/conf.py`.
+
+.. code-block:: python
+
+    import sys
+    from pathlib import Path
+
+    sys.path.insert(0, Path(__file__).parents[2].resolve().as_posix())
+
+In order to enable the `autodoc` and `autosummary` extensions, we need to add them to the list of extensions.
+
+.. code-block:: python
+
+    extensions = [
+	'sphinx.ext.autodoc',
+	'sphinx.ext.autosummary',
+    ]
+	
+Feel free to enable more Sphinx extensions. For a list of built-in extensions, consult [#f7]_.
+
+To enable automatic generation of stubs, add the following line:
+
+.. code-block:: python
+
+   autosummary_generate = True
+
+If you want your documentation to include type hints, also add the following line:
+
+.. code-block:: python
+
+   autodoc_typehints = 'description'
+
+For a list of `autodoc` config values, see [#f8]_.
+
+Now your ``conf.py`` should look something like this:
+
+.. code-block:: python
+	
+    # Configuration file for the Sphinx documentation builder.
+    #
+    # For the full list of built-in configuration values, see the documentation:
+    # https://www.sphinx-doc.org/en/master/usage/configuration.html
+
+    # -- Project information -----------------------------------------------------
+    # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
+
+    project = 'Example Project'
+    copyright = '2023, John Doe'
+    author = 'John Doe'
+    release = '0.0.1'
+
+    # -- General configuration ---------------------------------------------------
+    # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
+
+    import sys
+    from pathlib import Path
+
+    sys.path.insert(0, Path(__file__).parents[2].resolve().as_posix())
+
+    extensions = [
+	'sphinx.ext.autodoc',
+	'sphinx.ext.autosummary',
+    ]
+
+    autosummary_generate = True
+
+    autodoc_typehints = 'description'
+
+    templates_path = ['_templates']
+    exclude_patterns = []
+
+
+
+    # -- Options for HTML output -------------------------------------------------
+    # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
+
+    html_theme = 'alabaster'
+    html_static_path = ['_static']
+
+Customize the templates
+***********************
+
+We will copy the templates from the Sphinx installation into our local ``docs/source/_templates`` directory. We will need to edit them, otherwise they don't work properly. To create a local version of the module template, run
+
+.. code-block:: console
+
+   $ cp /usr/lib/python3.11/site-packages/sphinx/ext/autosummary/templates/autosummary/module.rst \
+        docs/source/_templates/project-module.rst.jinja2
+
+There are two ways to generate documentation: Either every class of a module, including its methods is fully documented on the module's page, or each class has its own page.
+
+To document every class of a module on a single page, in ``docs/source/_templates/project-module.rst.jinja2`` replace:
+
+.. code-block:: jinja
+
+    {% for item in functions %}
+	{{ item }}
+    {%- endfor %}
+
+with
+
+.. code-block:: jinja
+
+    {% for item in functions %}
+    .. autofunction:: {{ item }}
+    {%- endfor %}
+
+replace
+
+.. code-block:: jinja
+
+    {% for item in classes %}
+	{{ item }}
+    {%- endfor %}
+
+with
+
+.. code-block:: jinja
+
+    {% for item in classes %}
+    .. autoclass:: {{ item }}
+	:members:
+	:undoc-members:
+    {%- endfor %}
+
+and
+
+.. code-block:: jinja
+
+    {% for item in exceptions %}
+	{{ item }}
+    {%- endfor %}
+
+with
+
+.. code-block:: jinja
+
+    {% for item in exceptions %}
+    .. autoexception:: {{ item }}
+	:members:
+	:undoc-members:
+    {%- endfor %}
+
+finally replace
+
+.. code-block:: jinja
+
+    .. autosummary::
+       :toctree:
+       :recursive:
+
+with
+
+.. code-block:: jinja
+
+    .. autosummary::
+       :toctree:
+       :template: project-module.rst.jinja2
+       :recursive:
+
+If you want each class to have a separate page, you can download James Leedham's templates from `here <https://github.com/JamesALeedham/Sphinx-Autosummary-Recursion/tree/master/docs/_templates>`_ and copy them to ``docs/source/_templates``.
+
+Edit index.rst
+**************
+
+Let's say the name of the directory containing the Python source code is ``example-project``. To your generated ``docs/source/index.rst`` add:
+
+.. code-block:: rst
+
+    .. autosummary::
+       :template: dorina-module.rst.jinja2
+       :toctree: _generated
+       :recursive:
+
+       example-project
+
+Or, if you used James Leedham's templates [#f9]_:
+
+.. code-block:: rst
+
+    .. autosummary::
+       :template: custom-module-template.rst
+       :toctree: _generated
+       :recursive:
+
+       example-project
+
+Building the documentation
+**************************
+
+Enter the ``docs`` directory and build the documentation using ``make``:
+
+.. code-block:: console
+
+   $ cd docs
+   $ make html
+
+Your documentation should be available under ``docs/build/html``.
+
+.. rubric:: References
+
+.. [#f1] `Sphinx documentation <https://www.sphinx-doc.org>`_
+.. [#f2] `Docutils documentation: reStructuredText <https://docutils.sourceforge.io/rst.html>`_
+.. [#f3] `Sphinx documentation: reStructuredText Primer <https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html>`_
+.. [#f4] `PEP 257 – What is a Docstrings <https://peps.python.org/pep-0257/#what-is-a-docstring>`_
+.. [#f5] `Sphinx documentation: sphinx-apidoc <https://www.sphinx-doc.org/en/master/man/sphinx-apidoc.html>`_
+.. [#f6] `Sphinx AutoAPI documentation <https://sphinx-autoapi.readthedocs.io/en/latest/>`_
+.. [#f7] `Sphinx documentation: Extensions <https://www.sphinx-doc.org/en/master/usage/extensions/index.html>`_
+.. [#f8] `Sphinx documentation: sphinx.ext.autodoc – Include documentation from docstrings <https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#configuration>`_
+.. [#f9] `James Leedham's templates <https://github.com/JamesALeedham/Sphinx-Autosummary-Recursion/tree/master/docs/_templates>`_
