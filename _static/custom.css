@@ -1,1 +1,5 @@
-/* This file intentionally left blank. */
+@media screen and (max-width: 800px) {
+    #table-of-contents ul {
+	margin-left: 12px;
+    }
+}
