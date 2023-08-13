@@ -2,22 +2,26 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
   <id>https://princessdoreena.xyz</id>
   <title>Dorina's blog - Posts in Tutorial</title>
-  <updated>2023-08-13T21:30:15.661335+00:00</updated>
+  <updated>2023-08-13T22:00:36.797822+00:00</updated>
   <link href="https://princessdoreena.xyz"/>
   <link href="https://princessdoreena.xyz/blog/category/tutorial/atom.xml" rel="self"/>
   <generator uri="https://ablog.readthedocs.io/" version="0.11.4.post1">ABlog</generator>
   <entry>
     <id>https://princessdoreena.xyz/sphinx-autosummary/</id>
-    <title>How to automatically generate Sphinx documentation for your Python project complete with ToC and type hints without AutoAPI</title>
-    <updated>2023-08-08T00:00:00+02:00</updated>
+    <title>How to automatically generate Sphinx documentation for your Python project without AutoAPI</title>
+    <updated>2023-08-14T00:00:00+02:00</updated>
     <author>
       <name>Dorina Kovacs</name>
     </author>
-    <content type="html">&lt;p class="ablog-post-excerpt"&gt;&lt;p&gt;&lt;a class="reference internal" href="#introduction" id="id11"&gt;Introduction&lt;/a&gt;&lt;/p&gt;
+    <content type="html">&lt;p class="ablog-post-excerpt"&gt;&lt;p&gt;It is common for Python projects to keep the documentation in so-called &lt;cite&gt;docstrings&lt;/cite&gt; &lt;a class="footnote-reference brackets" href="#f4" id="id1" role="doc-noteref"&gt;&lt;span class="fn-bracket"&gt;[&lt;/span&gt;4&lt;span class="fn-bracket"&gt;]&lt;/span&gt;&lt;/a&gt; inside the
+source code. Sphinx’ &lt;cite&gt;autodoc&lt;/cite&gt; extension is able to extract the docstrings from the source code and
+include them in the documentataion…&lt;/p&gt;
 &lt;/p&gt;
 </content>
     <link href="https://princessdoreena.xyz/sphinx-autosummary/" rel="alternate"/>
-    <summary>Introduction</summary>
+    <summary>It is common for Python projects to keep the documentation in so-called docstrings 4 inside the
+source code. Sphinx’ autodoc extension is able to extract the docstrings from the source code and
+include them in the documentataion…</summary>
     <category term="autoapi" label="autoapi"/>
     <category term="autodoc" label="autodoc"/>
     <category term="autosummary" label="autosummary"/>
@@ -25,6 +29,6 @@
     <category term="documentation" label="documentation"/>
     <category term="python" label="python"/>
     <category term="sphinx" label="sphinx"/>
-    <published>2023-08-08T00:00:00+02:00</published>
+    <published>2023-08-14T00:00:00+02:00</published>
   </entry>
 </feed>

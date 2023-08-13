@@ -1,16 +1,21 @@
 
 .. Dorina's blog post example, created by `ablog start` on Aug 08, 2023.
 
-.. post:: Aug 08, 2023
+.. post:: Aug 14, 2023
    :category: Tutorial
    :tags: python, sphinx, documentation, autosummary, autodoc, autoapi, docstrings
    :author: Dorina Kovacs
+   :exclude:
 
-How to automatically generate Sphinx documentation for your Python project complete with ToC and type hints without AutoAPI
-===========================================================================================================================
+   It is common for Python projects to keep the documentation in so-called `docstrings` [#f4]_ inside the
+   source code. Sphinx' `autodoc` extension is able to extract the docstrings from the source code and
+   include them in the documentataion…
 
-Using `autosummary` and `autodoc` to automate documentation generation from source code and docstrings without using either AutoAPI, sphinx-apidoc or any external tool.
-########################################################################################################################################################################
+How to automatically generate Sphinx documentation for your Python project without AutoAPI
+==========================================================================================
+
+Using `autosummary` and `autodoc` to automate documentation generation from source code and docstrings without using either `AutoAPI`, `sphinx-apidoc` or any external tool
+###########################################################################################################################################################################
 
 .. contents:: Table of Contents
    :local:
@@ -355,7 +360,7 @@ Your documentation should be available under ``docs/build/html``.
 .. [#f1] `Sphinx documentation <https://www.sphinx-doc.org>`_
 .. [#f2] `Docutils documentation: reStructuredText <https://docutils.sourceforge.io/rst.html>`_
 .. [#f3] `Sphinx documentation: reStructuredText Primer <https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html>`_
-.. [#f4] `PEP 257 – What is a Docstrings <https://peps.python.org/pep-0257/#what-is-a-docstring>`_
+.. [#f4] `PEP 257 – What is a Docstring? <https://peps.python.org/pep-0257/#what-is-a-docstring>`_
 .. [#f5] `Sphinx documentation: sphinx-apidoc <https://www.sphinx-doc.org/en/master/man/sphinx-apidoc.html>`_
 .. [#f6] `Sphinx AutoAPI documentation <https://sphinx-autoapi.readthedocs.io/en/latest/>`_
 .. [#f7] `Sphinx documentation: Extensions <https://www.sphinx-doc.org/en/master/usage/extensions/index.html>`_

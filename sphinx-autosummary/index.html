@@ -8,7 +8,7 @@
     <link href="../_static/favicon-16x16" rel="icon">
     <link href="../_static/favicon-32x32" rel="icon">
     <link rel="apple-touch-icon" href="../_static/apple-touch-icon-180x180.png" sizes="180x180" type="image/png">
-    <title>How to automatically generate Sphinx documentation for your Python project complete with ToC and type hints without AutoAPI &#8212; Dorina&#39;s blog  documentation</title>
+    <title>How to automatically generate Sphinx documentation for your Python project without AutoAPI &#8212; Dorina&#39;s blog  documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
@@ -44,26 +44,26 @@
 
           <div class="body" role="main">
             
-<section id="how-to-automatically-generate-sphinx-documentation-for-your-python-project-complete-with-toc-and-type-hints-without-autoapi">
-<h1>How to automatically generate Sphinx documentation for your Python project complete with ToC and type hints without AutoAPI<a class="headerlink" href="#how-to-automatically-generate-sphinx-documentation-for-your-python-project-complete-with-toc-and-type-hints-without-autoapi" title="Permalink to this heading">¶</a></h1>
+<section id="how-to-automatically-generate-sphinx-documentation-for-your-python-project-without-autoapi">
+<h1>How to automatically generate Sphinx documentation for your Python project without AutoAPI<a class="headerlink" href="#how-to-automatically-generate-sphinx-documentation-for-your-python-project-without-autoapi" title="Permalink to this heading">¶</a></h1>
 <section id="using-autosummary-and-autodoc-to-automate-documentation-generation-from-source-code-and-docstrings-without-using-either-autoapi-sphinx-apidoc-or-any-external-tool">
-<h2>Using <cite>autosummary</cite> and <cite>autodoc</cite> to automate documentation generation from source code and docstrings without using either AutoAPI, sphinx-apidoc or any external tool.<a class="headerlink" href="#using-autosummary-and-autodoc-to-automate-documentation-generation-from-source-code-and-docstrings-without-using-either-autoapi-sphinx-apidoc-or-any-external-tool" title="Permalink to this heading">¶</a></h2>
+<h2>Using <cite>autosummary</cite> and <cite>autodoc</cite> to automate documentation generation from source code and docstrings without using either <cite>AutoAPI</cite>, <cite>sphinx-apidoc</cite> or any external tool<a class="headerlink" href="#using-autosummary-and-autodoc-to-automate-documentation-generation-from-source-code-and-docstrings-without-using-either-autoapi-sphinx-apidoc-or-any-external-tool" title="Permalink to this heading">¶</a></h2>
 <nav class="contents local" id="table-of-contents">
 <p class="topic-title">Table of Contents</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#introduction" id="id11">Introduction</a></p></li>
-<li><p><a class="reference internal" href="#first-step-generating-basic-sphinx-configuration" id="id12">First step: Generating basic Sphinx configuration</a></p></li>
-<li><p><a class="reference internal" href="#customize-conf-py" id="id13">Customize conf.py</a></p></li>
-<li><p><a class="reference internal" href="#customize-the-templates" id="id14">Customize the templates</a></p></li>
-<li><p><a class="reference internal" href="#edit-index-rst" id="id15">Edit index.rst</a></p></li>
-<li><p><a class="reference internal" href="#building-the-documentation" id="id16">Building the documentation</a></p></li>
+<li><p><a class="reference internal" href="#introduction" id="id12">Introduction</a></p></li>
+<li><p><a class="reference internal" href="#first-step-generating-basic-sphinx-configuration" id="id13">First step: Generating basic Sphinx configuration</a></p></li>
+<li><p><a class="reference internal" href="#customize-conf-py" id="id14">Customize conf.py</a></p></li>
+<li><p><a class="reference internal" href="#customize-the-templates" id="id15">Customize the templates</a></p></li>
+<li><p><a class="reference internal" href="#edit-index-rst" id="id16">Edit index.rst</a></p></li>
+<li><p><a class="reference internal" href="#building-the-documentation" id="id17">Building the documentation</a></p></li>
 </ul>
 </nav>
 <section id="introduction">
-<h3><a class="toc-backref" href="#id11" role="doc-backlink">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this heading">¶</a></h3>
-<p>Sphinx <a class="footnote-reference brackets" href="#f1" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> is a popular documentation generator tool, able to generate pretty <cite>HTML</cite> such as this:</p>
+<h3><a class="toc-backref" href="#id12" role="doc-backlink">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this heading">¶</a></h3>
+<p>Sphinx <a class="footnote-reference brackets" href="#f1" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> is a popular documentation generator tool, able to generate pretty <cite>HTML</cite> such as this:</p>
 <picture><source media="(max-width: 799px)" srcset="../_images/sphinx_example-mobile.png"/><source media=" (min-width: 800px)" srcset="../_images/sphinx_example.png"/><img alt="Cropeed screenshot of the documentation of the spotipy library. The image shows a part of a list of classes with their methods documented." src="_static/sphinx_example.png" />
-</picture><p>Sphinx uses a markup language called reStructuredText <a class="footnote-reference brackets" href="#f2" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>  <a class="footnote-reference brackets" href="#f3" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>. reStructuredText looks like the following (taken from the spotipy documentation):</p>
+</picture><p>Sphinx uses a markup language called reStructuredText <a class="footnote-reference brackets" href="#f2" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>  <a class="footnote-reference brackets" href="#f3" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>. reStructuredText looks like the following (taken from the spotipy documentation):</p>
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">image</span><span class="p">::</span> images/spotify-web-api-doc.jpg
 <span class="nc">:width:</span> 100 %
 
@@ -80,23 +80,23 @@ environment variables (here is a <span class="s">`video </span><span class="si">
 </div>
 <p>To follow this tutorial an in-depth knowledge of reStructuredText is not needed. Making small edits in
 generated documents and simply copy-pasting a few lines will be enough. For an introduction to
-reStructuredText: see <a class="footnote-reference brackets" href="#f3" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>.</p>
-<p>It is common for Python projects to keep the documentation in so-called <cite>docstrings</cite> <a class="footnote-reference brackets" href="#f4" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a> inside the
+reStructuredText: see <a class="footnote-reference brackets" href="#f3" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>.</p>
+<p>It is common for Python projects to keep the documentation in so-called <cite>docstrings</cite> <a class="footnote-reference brackets" href="#f4" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a> inside the
 source code. Sphinx’ <cite>autodoc</cite> extension is able to extract the docstrings from the source code and
 include them in the documentataion.</p>
 <p>There are multiple ways to automatically generate documentation using <cite>autodoc</cite> for every module in a
-project. Sphinx includes a tool called <cite>sphinx-apidoc</cite> <a class="footnote-reference brackets" href="#f5" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a>. From the documentation:</p>
+project. Sphinx includes a tool called <cite>sphinx-apidoc</cite> <a class="footnote-reference brackets" href="#f5" id="id7" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a>. From the documentation:</p>
 <blockquote class="epigraph">
 <div><p><strong>sphinx-apidoc</strong> is a tool for automatic generation of Sphinx sources that, using the <cite>autodoc</cite> extension, document a whole package in the style of other automatic API documentation tools.</p>
 </div></blockquote>
 <p>The problem with <cite>sphinx-apidoc</cite> is that the table of contents is not included in the sidebar, making
 it hard to navigate the documentation, thus we will not use it in this tutorial. Another way to
-generate docs is to use an external program called <cite>AutoAPI</cite> <a class="footnote-reference brackets" href="#f6" id="id7" role="doc-noteref"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></a>. In this tutorial however we will
+generate docs is to use an external program called <cite>AutoAPI</cite> <a class="footnote-reference brackets" href="#f6" id="id8" role="doc-noteref"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></a>. In this tutorial however we will
 use no external tool, since it is possible to generate nice docs using only the <cite>autosummary</cite> extension,
 which is part of the official Sphinx distribution.</p>
 </section>
 <section id="first-step-generating-basic-sphinx-configuration">
-<h3><a class="toc-backref" href="#id12" role="doc-backlink">First step: Generating basic Sphinx configuration</a><a class="headerlink" href="#first-step-generating-basic-sphinx-configuration" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id13" role="doc-backlink">First step: Generating basic Sphinx configuration</a><a class="headerlink" href="#first-step-generating-basic-sphinx-configuration" title="Permalink to this heading">¶</a></h3>
 <p>Change directory to your project’s root and use the <code class="docutils literal notranslate"><span class="pre">sphinx-quickstart</span></code> command to generate basic
 sphinx configuration. <cite>sphinx-quickstart</cite> allows you to specify which extensions to enable and
 where the templates will be located using command line options. We will do it later manually
@@ -143,7 +143,7 @@ instead.</p>
 </div>
 </section>
 <section id="customize-conf-py">
-<h3><a class="toc-backref" href="#id13" role="doc-backlink">Customize conf.py</a><a class="headerlink" href="#customize-conf-py" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id14" role="doc-backlink">Customize conf.py</a><a class="headerlink" href="#customize-conf-py" title="Permalink to this heading">¶</a></h3>
 <p>Open <code class="docutils literal notranslate"><span class="pre">docs/source/conf.py</span></code> with a text editor. It will look like this:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Configuration file for the Sphinx documentation builder.</span>
 <span class="c1">#</span>
@@ -190,7 +190,7 @@ Paste the following lines into <cite>docs/source/conf.py</cite>.</p>
 <span class="p">]</span>
 </pre></div>
 </div>
-<p>Feel free to enable more Sphinx extensions. For a list of built-in extensions, consult <a class="footnote-reference brackets" href="#f7" id="id8" role="doc-noteref"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></a>.</p>
+<p>Feel free to enable more Sphinx extensions. For a list of built-in extensions, consult <a class="footnote-reference brackets" href="#f7" id="id9" role="doc-noteref"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></a>.</p>
 <p>To enable automatic generation of stubs, add the following line:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">autosummary_generate</span> <span class="o">=</span> <span class="kc">True</span>
 </pre></div>
@@ -199,7 +199,7 @@ Paste the following lines into <cite>docs/source/conf.py</cite>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">autodoc_typehints</span> <span class="o">=</span> <span class="s1">&#39;description&#39;</span>
 </pre></div>
 </div>
-<p>For a list of <cite>autodoc</cite> config values, see <a class="footnote-reference brackets" href="#f8" id="id9" role="doc-noteref"><span class="fn-bracket">[</span>8<span class="fn-bracket">]</span></a>.</p>
+<p>For a list of <cite>autodoc</cite> config values, see <a class="footnote-reference brackets" href="#f8" id="id10" role="doc-noteref"><span class="fn-bracket">[</span>8<span class="fn-bracket">]</span></a>.</p>
 <p>Now your <code class="docutils literal notranslate"><span class="pre">conf.py</span></code> should look something like this:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Configuration file for the Sphinx documentation builder.</span>
 <span class="c1">#</span>
@@ -245,7 +245,7 @@ Paste the following lines into <cite>docs/source/conf.py</cite>.</p>
 </div>
 </section>
 <section id="customize-the-templates">
-<h3><a class="toc-backref" href="#id14" role="doc-backlink">Customize the templates</a><a class="headerlink" href="#customize-the-templates" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id15" role="doc-backlink">Customize the templates</a><a class="headerlink" href="#customize-the-templates" title="Permalink to this heading">¶</a></h3>
 <p>We will copy the templates from the Sphinx installation into our local <code class="docutils literal notranslate"><span class="pre">docs/source/_templates</span></code> directory. We will need to edit them, otherwise they don’t work properly. To create a local version of the module template, run</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cp<span class="w"> </span>/usr/lib/python3.11/site-packages/sphinx/ext/autosummary/templates/autosummary/module.rst<span class="w"> </span><span class="se">\</span>
 <span class="w">     </span>docs/source/_templates/project-module.rst.jinja2
@@ -308,7 +308,7 @@ Paste the following lines into <cite>docs/source/conf.py</cite>.</p>
 <p>If you want each class to have a separate page, you can download James Leedham’s templates from <a class="reference external" href="https://github.com/JamesALeedham/Sphinx-Autosummary-Recursion/tree/master/docs/_templates">here</a> and copy them to <code class="docutils literal notranslate"><span class="pre">docs/source/_templates</span></code>.</p>
 </section>
 <section id="edit-index-rst">
-<h3><a class="toc-backref" href="#id15" role="doc-backlink">Edit index.rst</a><a class="headerlink" href="#edit-index-rst" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id16" role="doc-backlink">Edit index.rst</a><a class="headerlink" href="#edit-index-rst" title="Permalink to this heading">¶</a></h3>
 <p>Let’s say the name of the directory containing the Python source code is <code class="docutils literal notranslate"><span class="pre">example-project</span></code>. To your generated <code class="docutils literal notranslate"><span class="pre">docs/source/index.rst</span></code> add:</p>
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">autosummary</span><span class="p">::</span>
    <span class="nc">:template:</span> dorina-module.rst.jinja2
@@ -318,7 +318,7 @@ Paste the following lines into <cite>docs/source/conf.py</cite>.</p>
    example-project
 </pre></div>
 </div>
-<p>Or, if you used James Leedham’s templates <a class="footnote-reference brackets" href="#f9" id="id10" role="doc-noteref"><span class="fn-bracket">[</span>9<span class="fn-bracket">]</span></a>:</p>
+<p>Or, if you used James Leedham’s templates <a class="footnote-reference brackets" href="#f9" id="id11" role="doc-noteref"><span class="fn-bracket">[</span>9<span class="fn-bracket">]</span></a>:</p>
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">autosummary</span><span class="p">::</span>
    <span class="nc">:template:</span> custom-module-template.rst
    <span class="nc">:toctree:</span> _generated
@@ -329,7 +329,7 @@ Paste the following lines into <cite>docs/source/conf.py</cite>.</p>
 </div>
 </section>
 <section id="building-the-documentation">
-<h3><a class="toc-backref" href="#id16" role="doc-backlink">Building the documentation</a><a class="headerlink" href="#building-the-documentation" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id17" role="doc-backlink">Building the documentation</a><a class="headerlink" href="#building-the-documentation" title="Permalink to this heading">¶</a></h3>
 <p>Enter the <code class="docutils literal notranslate"><span class="pre">docs</span></code> directory and build the documentation using <code class="docutils literal notranslate"><span class="pre">make</span></code>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">cd</span><span class="w"> </span>docs
 <span class="gp">$ </span>make<span class="w"> </span>html
@@ -339,40 +339,41 @@ Paste the following lines into <cite>docs/source/conf.py</cite>.</p>
 <p class="rubric">References</p>
 <aside class="footnote-list brackets">
 <aside class="footnote brackets" id="f1" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">1</a><span class="fn-bracket">]</span></span>
 <p><a class="reference external" href="https://www.sphinx-doc.org">Sphinx documentation</a></p>
 </aside>
 <aside class="footnote brackets" id="f2" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">2</a><span class="fn-bracket">]</span></span>
 <p><a class="reference external" href="https://docutils.sourceforge.io/rst.html">Docutils documentation: reStructuredText</a></p>
 </aside>
 <aside class="footnote brackets" id="f3" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id3">1</a>,<a role="doc-backlink" href="#id4">2</a>)</span>
+<span class="backrefs">(<a role="doc-backlink" href="#id4">1</a>,<a role="doc-backlink" href="#id5">2</a>)</span>
 <p><a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html">Sphinx documentation: reStructuredText Primer</a></p>
 </aside>
 <aside class="footnote brackets" id="f4" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">4</a><span class="fn-bracket">]</span></span>
-<p><a class="reference external" href="https://peps.python.org/pep-0257/#what-is-a-docstring">PEP 257 – What is a Docstrings</a></p>
+<span class="label"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id6">2</a>)</span>
+<p><a class="reference external" href="https://peps.python.org/pep-0257/#what-is-a-docstring">PEP 257 – What is a Docstring?</a></p>
 </aside>
 <aside class="footnote brackets" id="f5" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">5</a><span class="fn-bracket">]</span></span>
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id7">5</a><span class="fn-bracket">]</span></span>
 <p><a class="reference external" href="https://www.sphinx-doc.org/en/master/man/sphinx-apidoc.html">Sphinx documentation: sphinx-apidoc</a></p>
 </aside>
 <aside class="footnote brackets" id="f6" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id7">6</a><span class="fn-bracket">]</span></span>
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id8">6</a><span class="fn-bracket">]</span></span>
 <p><a class="reference external" href="https://sphinx-autoapi.readthedocs.io/en/latest/">Sphinx AutoAPI documentation</a></p>
 </aside>
 <aside class="footnote brackets" id="f7" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id8">7</a><span class="fn-bracket">]</span></span>
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id9">7</a><span class="fn-bracket">]</span></span>
 <p><a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/index.html">Sphinx documentation: Extensions</a></p>
 </aside>
 <aside class="footnote brackets" id="f8" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id9">8</a><span class="fn-bracket">]</span></span>
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id10">8</a><span class="fn-bracket">]</span></span>
 <p><a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#configuration">Sphinx documentation: sphinx.ext.autodoc – Include documentation from docstrings</a></p>
 </aside>
 <aside class="footnote brackets" id="f9" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id10">9</a><span class="fn-bracket">]</span></span>
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id11">9</a><span class="fn-bracket">]</span></span>
 <p><a class="reference external" href="https://github.com/JamesALeedham/Sphinx-Autosummary-Recursion/tree/master/docs/_templates">James Leedham’s templates</a></p>
 </aside>
 </aside>
@@ -397,6 +398,35 @@ Paste the following lines into <cite>docs/source/conf.py</cite>.</p>
 
   
   
+  <div class="section ablog__comments">
+    <h2>Comments</h2>
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+      var disqus_shortname = "dorinas-blog";
+      var disqus_identifier = "/sphinx-autosummary/";
+      var disqus_title = "How to automatically generate Sphinx documentation for your Python project without AutoAPI";
+      var disqus_url = "https://princessdoreena.xyz/sphinx-autosummary";
+
+      (function () {
+        var dsq = document.createElement("script");
+        dsq.type = "text/javascript";
+        dsq.async = true;
+        dsq.src = "//" + disqus_shortname + ".disqus.com/embed.js";
+        (
+          document.getElementsByTagName("head")[0] ||
+          document.getElementsByTagName("body")[0]
+        ).appendChild(dsq);
+      })();
+    </script>
+    <noscript>
+      Please enable JavaScript to view the
+      <a href="https://disqus.com/?ref_noscript">
+        comments powered by Disqus.</a ></noscript >
+    <a href="https://disqus.com" class="dsq-brlink">
+      comments powered by <span class="logo-disqus">Disqus</span>
+    </a >
+  </div>
+  
 </div>
 
           </div>
@@ -414,7 +444,7 @@ Paste the following lines into <cite>docs/source/conf.py</cite>.</p>
 <h2>
   
   
-  08 August 2023
+  14 August 2023
   
 </h2>
 <ul>
@@ -462,7 +492,7 @@ Paste the following lines into <cite>docs/source/conf.py</cite>.</p>
     </span>
   
   
-  <a href="../blog/tag/documentation/">documentation</a>
+  <a href="../blog/tag/autosummary/">autosummary</a>
   
   
   
@@ -474,13 +504,7 @@ Paste the following lines into <cite>docs/source/conf.py</cite>.</p>
   
   
   
-  <a href="../blog/tag/python/">python</a>
-  
-  
-  
-  
-  
-  <a href="../blog/tag/autosummary/">autosummary</a>
+  <a href="../blog/tag/sphinx/">sphinx</a>
   
   
   
@@ -492,7 +516,13 @@ Paste the following lines into <cite>docs/source/conf.py</cite>.</p>
   
   
   
-  <a href="../blog/tag/sphinx/">sphinx</a>
+  <a href="../blog/tag/python/">python</a>
+  
+  
+  
+  
+  
+  <a href="../blog/tag/documentation/">documentation</a>
   
   
   
@@ -504,6 +534,30 @@ Paste the following lines into <cite>docs/source/conf.py</cite>.</p>
   
 </li>
 
+
+<li id="ablog-sidebar-item comments ablog__comments">
+  <script type="text/javascript">
+    var disqus_shortname = "dorinas-blog";
+
+    (function () {
+      var s = document.createElement("script");
+      s.async = true;
+      s.type = "text/javascript";
+      s.src = "//" + disqus_shortname + ".disqus.com/count.js";
+      (
+        document.getElementsByTagName("HEAD")[0] ||
+        document.getElementsByTagName("BODY")[0]
+      ).appendChild(s);
+    })();
+  </script>
+  
+  <a href="#disqus_thread" data-disqus-identifier="/sphinx-autosummary/" >
+    
+    Comments
+    
+  </a >
+</li>
+</div>
 
 </ul>
 </div>
