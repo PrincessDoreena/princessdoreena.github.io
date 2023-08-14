@@ -156,7 +156,7 @@ Open ``docs/source/conf.py`` with a text editor. It will look like this:
    html_static_path = ['_static']
 
 Since we want Sphinx to be able to find our python modules, we need to add our project root to ``sys.path``.
-Paste the following lines into `docs/source/conf.py`.
+Paste the following lines into ``docs/source/conf.py``.
 
 .. code-block:: python
 
@@ -326,7 +326,7 @@ Let's say the name of the directory containing the Python source code is ``examp
 .. code-block:: rst
 
     .. autosummary::
-       :template: dorina-module.rst.jinja2
+       :template: project-module.rst.jinja2
        :toctree: _generated
        :recursive:
 
