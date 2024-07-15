@@ -1,0 +1,47 @@
+ <!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+<title>Table</title>
+<style>
+    td {
+        text-align: center;
+        padding: 6px;
+    }
+</style>
+</head>
+<body>
+
+<table>
+</table>
+    
+<input type=number id="n" value=9 />
+
+<script>let tbl = document.querySelector("table");
+
+    document.querySelector("#n").addEventListener("change", (e) => {table();});
+    
+    let abc = "abcdefghijklmnopqrstuvwxyz"
+    table();
+    
+    function table() {
+      let n = document.querySelector("#n").value;
+      tbl.innerHTML = "";
+      let fr = document.createElement("tr");
+      tbl.appendChild(fr);
+      for (let j=0; j < n; j++) {
+          let r = document.createElement("tr");
+          tbl.appendChild(r);
+      }
+      for (let i=1; i <= n; i++) {
+        let h = fr.appendChild(document.createElement("th"));
+        h.textContent = i;
+        for (let j=1; j <= n; j++) {
+          let d = document.createElement("td");
+          tbl.childNodes[j].appendChild(d);
+          d.textContent = abc[(((j-1)*n) + i-1)%abc.length];
+        }
+      }
+    }</script>
+</body>
+</html> 
